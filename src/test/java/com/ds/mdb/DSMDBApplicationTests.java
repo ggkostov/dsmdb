@@ -1,4 +1,4 @@
-package com.ds.mdb.dsmdb;
+package com.ds.mdb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
