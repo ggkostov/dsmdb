@@ -112,7 +112,7 @@ public class MovieController {
             @ApiResponse(code = 404, message = "Movie not found"),
             @ApiResponse(code = 400, message = "Bad given values(s)")
     })
-    @GetMapping("/{id}/{values}")
+    @GetMapping("/{id}/{fieldNames}")
     public ResponseEntity<Object> getMovieByDetails(
             @ApiParam(value = "Movie ID from which Movie details will be retrieved")
             @PathVariable Long id,

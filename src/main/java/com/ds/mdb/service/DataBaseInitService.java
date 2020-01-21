@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DataBaseSchemaService {
+public class DataBaseInitService {
 
     @Value("${database.schema.file}")
     private String file;
@@ -22,24 +22,24 @@ public class DataBaseSchemaService {
     private SequenceService sequenceService;
 
     public void ensureSchema() {
-        if (!isValid()) {
-            insert();
+        if (!isDatabaseEmpty()) {
+            insertMoviesFromCSV();
         }
     }
 
-    private boolean isValid() {
+    private boolean isDatabaseEmpty() {
         boolean empty;
 
         try {
             empty = movieRepository.findAll().isEmpty();
         } catch (Exception e) {
-            empty = true;
+            empty = true; // assume as empty when there is no one movie located in DB.
         }
 
         return !empty;
     }
 
-    private void insert() {
+    private void insertMoviesFromCSV() {
         CSVMovieReader csvMovieReader = new CSVMovieReader();
         List<Movie> movies = csvMovieReader.getMoviesFromFile(file);
 
