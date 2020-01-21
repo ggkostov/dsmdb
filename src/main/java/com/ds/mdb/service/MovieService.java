@@ -10,8 +10,7 @@ public interface MovieService {
 
     Movie getMovieByID(Long id) throws NoSuchElementException;
     Movie putNewMovie(Movie movie);
-    Movie editMovie(Movie oldOne, Movie newOne);
-    void deleteMovieByID(Long id);
-    List<Movie> findAll();
-    Map<String, Object> getByIDWith(Long id, String[] arguments);
+    Movie editMovie(Long id, Movie newOne);
+    boolean deleteMovieByID(Long id);
+    Map<String, Object> getByIDWith(Long id, List<String> fieldNames) throws IllegalArgumentException;
 }

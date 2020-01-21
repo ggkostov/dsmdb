@@ -1,18 +1,18 @@
-package com.ds.mdb.components;
+package com.ds.mdb.service;
 
 import com.ds.mdb.model.Movie;
 import com.ds.mdb.repositories.MovieRepository;
-import com.ds.mdb.service.SequenceService;
 import com.ds.mdb.util.CSVMovieReader;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 
-@Component
-public class DataBaseSchema {
+@Service
+public class DataBaseSchemaService {
 
     @Value("${database.schema.file}")
     private String file;

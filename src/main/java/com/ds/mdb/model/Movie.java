@@ -1,25 +1,44 @@
 package com.ds.mdb.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 
 @Document(collection = "movies")
+@ApiModel(description = "All Movie details.")
 public class Movie {
 
     public static final String SEQUENCE_NAME = "movies_sequence";
 
     @Id
+    @ApiModelProperty(notes = "Movie ID")
     private long id;
 
+    @ApiModelProperty(notes = "Movie name")
     private String name;
+
+    @ApiModelProperty(notes = "Movie genre")
     private String genre;
+
+    @ApiModelProperty(notes = "Movie Lead Studio")
     private String leadStudio;
+
+    @ApiModelProperty(notes = "Movie Score")
     private int audienceScore;
+
+    @ApiModelProperty(notes = "Movie Profitability")
     private double profitability;
+
+    @ApiModelProperty(notes = "Movie Score of Rotten Tomatoes")
     private int rottenTomatoesScore;
+
+    @ApiModelProperty(notes = "Movie Worldwide Gross")
     private BigDecimal worldwideGross;
+
+    @ApiModelProperty(notes = "Movie Year")
     private int year;
 
     public Movie(long id, String name, String genre, String leadStudio, int audienceScore, double profitability,

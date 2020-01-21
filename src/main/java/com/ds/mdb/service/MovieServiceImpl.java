@@ -2,10 +2,10 @@ package com.ds.mdb.service;
 
 import com.ds.mdb.model.Movie;
 import com.ds.mdb.repositories.MovieRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -34,49 +34,43 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie editMovie(Movie oldOne, Movie newOne) {
-        if (oldOne == null) return null;
-        newOne.setId(oldOne.getId());
+    public Movie editMovie(Long id, Movie newOne) {
+        newOne.setId(getMovieByID(id).getId());
         return movieRepository.save(newOne);
     }
 
     @Override
-    public void deleteMovieByID(Long id) {
+    public boolean deleteMovieByID(Long id) {
+        getMovieByID(id);
+
         movieRepository.deleteById(id);
+
+        return true;
     }
 
     @Override
-    public List<Movie> findAll() {
-        return movieRepository.findAll();
-    }
-
-    @Override
-    public Map<String, Object> getByIDWith(Long id, String[] arguments) {
+    public Map<String, Object> getByIDWith(Long id, List<String> fieldNames) throws IllegalArgumentException {
         Map<String, Object> result;
 
-        if (arguments.length <= 0) {
-            return null;
+        if (fieldNames.size() <= 0) {
+            throw new IllegalArgumentException("Missing arguments");
         } else {
-            result = convertToMap(id);
+            result = convertToMap(getMovieByID(id));
 
-            if (result == null) return null;
-
-            for (String argument : arguments) {
+            for (String argument : fieldNames) {
                 if (!result.containsKey(argument)) {
                     throw new IllegalArgumentException(String.format("Invalid argument '%s'", argument));
                 }
             }
 
-            result.keySet().retainAll(Arrays.asList(arguments));
+            result.keySet().retainAll(fieldNames);
         }
 
         return result;
     }
 
-    private Map<String, Object> convertToMap(Long id) {
+    private Map<String, Object> convertToMap(Movie movie) throws NoSuchElementException {
         Map<String, Object> result = null;
-
-        Movie movie = getMovieByID(id);
 
         if (movie != null) {
             result = new HashMap<>();
@@ -93,13 +87,4 @@ public class MovieServiceImpl implements MovieService {
 
         return result;
     }
-//
-//    String name;
-//    String genre;
-//    String leadStudio;
-//    int audienceScore;
-//    double profitability;
-//    int rottenTomatoesScore;
-//    BigDecimal worldwideGross;
-//    int year;
 }
