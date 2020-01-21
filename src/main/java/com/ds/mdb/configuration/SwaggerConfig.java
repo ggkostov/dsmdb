@@ -2,6 +2,7 @@ package com.ds.mdb.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -19,8 +20,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors
-                        .basePackage("com.ds.mdb.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.ds.mdb.controller"))
                 .paths(PathSelectors.regex("/.*"))
                 .build()
                 .apiInfo(apiInfo())

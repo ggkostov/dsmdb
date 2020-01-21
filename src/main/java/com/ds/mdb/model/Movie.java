@@ -14,7 +14,7 @@ public class Movie {
     public static final String SEQUENCE_NAME = "movies_sequence";
 
     @Id
-    @ApiModelProperty(notes = "Movie ID")
+    @ApiModelProperty(notes = "Movie database identifier")
     private long id;
 
     @ApiModelProperty(notes = "Movie name")
@@ -36,13 +36,13 @@ public class Movie {
     private int rottenTomatoesScore;
 
     @ApiModelProperty(notes = "Movie Worldwide Gross")
-    private BigDecimal worldwideGross;
+    private WorldwideGross worldwideGross;
 
     @ApiModelProperty(notes = "Movie Year")
     private int year;
 
     public Movie(long id, String name, String genre, String leadStudio, int audienceScore, double profitability,
-                 int rottenTomatoesScore, BigDecimal worldwideGross, int year) {
+                 int rottenTomatoesScore, WorldwideGross worldwideGross, int year) {
         this.id = id;
         this.name = name;
         this.genre = genre;
@@ -110,11 +110,11 @@ public class Movie {
         this.rottenTomatoesScore = rottenTomatoesScore;
     }
 
-    public BigDecimal getWorldwideGross() {
+    public WorldwideGross getWorldwideGross() {
         return worldwideGross;
     }
 
-    public void setWorldwideGross(BigDecimal worldwideGross) {
+    public void setWorldwideGross(WorldwideGross worldwideGross) {
         this.worldwideGross = worldwideGross;
     }
 

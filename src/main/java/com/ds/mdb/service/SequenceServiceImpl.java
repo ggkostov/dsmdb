@@ -1,6 +1,7 @@
 package com.ds.mdb.service;
 
 import com.ds.mdb.model.Sequence;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;
@@ -25,6 +26,7 @@ public class SequenceServiceImpl implements SequenceService {
                 Sequence.class);
 
         if (sequence == null) {
+            // if there is no sequence declared in DB then mark initial sequence number as 1.
             sequence = new Sequence(collectionName, 1);
             mongoOperations.insert(sequence);
         }
