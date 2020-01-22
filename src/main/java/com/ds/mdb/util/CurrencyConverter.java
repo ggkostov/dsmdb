@@ -6,33 +6,27 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Currency;
-import java.util.Locale;
+import java.util.*;
 
 public class CurrencyConverter {
 
     public static WorldwideGross currencyToWorldwideGross(String amountString) throws ParseException {
         NumberFormat format = NumberFormat.getNumberInstance(Locale.US);
         String[] countries = {"US", "GB", "EU"};
-        WorldwideGross worldwideGross = null;
 
         for (String countryCode : countries) {
-            Currency c = Currency.getInstance(new Locale("EN", countryCode));
-            if (amountString.contains(c.getSymbol())) {
+            Currency c = Currency.getInstance(new Locale("", countryCode));
+            String symbol = c.getSymbol(Locale.US);
+            if (amountString.contains(symbol)) {
 
                 if (format instanceof DecimalFormat) {
                     ((DecimalFormat) format).setParseBigDecimal(true);
                 }
 
-                worldwideGross = new WorldwideGross(c.getCurrencyCode(), (BigDecimal) format.parse(amountString.replace(c.getSymbol(), "")));
-                break;
+                return new WorldwideGross(c.getCurrencyCode(), (BigDecimal) format.parse(amountString.replace(symbol, "")));
             }
         }
 
-        return worldwideGross;
-    }
-
-    public static String  worldwideGrossToCurrencyString(String currencyCode, BigDecimal amount) {
-        return "";
+        return new WorldwideGross("USD", new BigDecimal(0));
     }
 }

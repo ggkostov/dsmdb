@@ -2,19 +2,27 @@
 
 This is a Simple Movie search engine REST API used for retrieving movie information from MongoDB database.
 
-The Application uses content from `movies.csv` file to populate Database with Movie objects.
+The Application uses content from `movies.csv` file to populate Database with Movie objects. The CSV file is located at `src/main/resources`.
 
-## Install
+## Installation Requirements
 
-    
+- Maven required - [link](https://maven.apache.org/index.html)
+
+###Install MongoDB server
+Download MongoDB server installation file from [here](https://www.mongodb.com/download-center/community)
+
+###Install the jar package using maven
+navigate to folder where source is located and run the command below
+ 
+    mvn package 
 
 ## Run the app
 
-    java -cp dsmdb.jar
+    java -cp /full_path_to_jar/dsmdb-0.0.1-SNAPSHOT.jar  
 
-## Run the tests
+You can find REST Api endpoint at `http://localhost:8080/movies`.
 
-    
+Swagger url: `http://localhost:8080/swagger-ui.html`
 
 # REST API
 
@@ -38,8 +46,39 @@ The REST API to the Simple Movie Search Engine app is described below.
 
 `POST /movies/`
 
-    curl -X POST "http://localhost:8080/movies/" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"audienceScore\": 0, \"genre\": \"string\", \"id\": 0, \"leadStudio\": \"string\", \"name\": \"string\", \"profitability\": 0, \"rottenTomatoesScore\": 0, \"worldwideGross\": 0, \"year\": 0}"
+    curl -X POST "http://localhost:8080/movies/" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"audienceScore\": 99, \"genre\": \"Example\", \"id\": 0, \"leadStudio\": \"Example Studio\", \"name\": \"Test Movie\", \"profitability\": 100.54, \"rottenTomatoesScore\": 10, \"worldwideGross\": { \"amount\": 52.33, \"currency\": \"USD\" }, \"year\": 2020}"
 
 ### Response
-
+    {
+      "id": 78,
+      "name": "Test Movie",
+      "genre": "Example",
+      "leadStudio": "Example Studio",
+      "audienceScore": 99,
+      "profitability": 100.54,
+      "rottenTomatoesScore": 10,
+      "worldwideGross": {
+        "currency": "USD",
+        "amount": 52.33
+      },
+      "year": 2020
+    }
     
+## Retrieve Movie fields by given ID and list of fields
+
+### Request
+    curl -X GET "http://localhost:8080/movies/12/worldwideGross%2C%20name%2C%20genre%2C%20id" -H "accept: */*"
+
+### Response
+    {
+      "name": "Twilight: Breaking Dawn",
+      "genre": "Romance",
+      "id": 12,
+      "worldwideGross": {
+        "currency": "USD",
+        "amount": 702.17
+      }
+    }
+    
+### Reference
+for more REST  examples please review the swagger UI - `http://localhost:8080/swagger-ui.html`.
