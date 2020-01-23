@@ -33,4 +33,12 @@ public class SequenceServiceImpl implements SequenceService {
 
         return sequence.getSequence();
     }
+
+    @Override
+    public Long getLastSequence(String inKey) {
+        Sequence lastSequence = mongoOperations.findOne(
+                query(where("_id").is(inKey)),
+                Sequence.class);
+        return lastSequence != null ? lastSequence.getSequence() : 0L;
+    }
 }

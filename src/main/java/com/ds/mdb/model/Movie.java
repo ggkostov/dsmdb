@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigDecimal;
-
 @Document(collection = "movies")
 @ApiModel(description = "All Movie details.")
 public class Movie {
@@ -40,6 +38,9 @@ public class Movie {
 
     @ApiModelProperty(notes = "Movie Year")
     private int year;
+
+    public Movie() {
+    }
 
     public Movie(long id, String name, String genre, String leadStudio, int audienceScore, double profitability,
                  int rottenTomatoesScore, WorldwideGross worldwideGross, int year) {
