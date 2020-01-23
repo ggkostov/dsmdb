@@ -7,10 +7,12 @@ The Application uses content from `movies.csv` file to populate Database with Mo
 
 ## Installation Requirements
 
-###Install MongoDB server
+
+### Install MongoDB server
 Download MongoDB server installation file from [here](https://www.mongodb.com/download-center/community)
 
-###Install the jar package using maven
+
+### Install the jar package using maven
 navigate to folder where source is located and run the command below
  
     mvn package 
