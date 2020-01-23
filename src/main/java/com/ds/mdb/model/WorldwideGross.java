@@ -13,6 +13,9 @@ public class WorldwideGross {
     @ApiModelProperty(notes = "Worldwide Gross amount")
     private BigDecimal amount;
 
+    public WorldwideGross() {
+    }
+
     public WorldwideGross(String currency, BigDecimal amount) {
         this.currency = currency;
         this.amount = amount;

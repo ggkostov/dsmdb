@@ -3,10 +3,9 @@
 This is a Simple Movie search engine REST API used for retrieving movie information from MongoDB database.
 
 The Application uses content from `movies.csv` file to populate Database with Movie objects. The CSV file is located at `src/main/resources`.
+- To change The database url, port, name etc. navigate to `dsmdb\src\main\resources\` and edit `application.properties` file.
 
 ## Installation Requirements
-
-- Maven required - [link](https://maven.apache.org/index.html)
 
 ###Install MongoDB server
 Download MongoDB server installation file from [here](https://www.mongodb.com/download-center/community)
@@ -26,7 +25,7 @@ Swagger url: `http://localhost:8080/swagger-ui.html`
 
 # REST API
 
-The REST API to the Simple Movie Search Engine app is described below.
+The REST API services of Simple Movie Search Engine app are described below.
 
 ## Get Movie
 
@@ -34,11 +33,24 @@ The REST API to the Simple Movie Search Engine app is described below.
 
 `GET /movies/{id}`
 
-    curl -i -H 'Accept: application/json' http://localhost:8080/movies/25
+    curl -i -H 'Accept: application/json' http://localhost:8080/movies/29
 
 ### Response
 
-    
+    {
+      "id": 29,
+      "name": "Remember Me",
+      "genre": "Drama",
+      "leadStudio": "Summit",
+      "audienceScore": 70,
+      "profitability": 3.49125,
+      "rottenTomatoesScore": 28,
+      "worldwideGross": {
+        "currency": "USD",
+        "amount": 55.86
+      },
+      "year": 2010
+    }
 
 ## Create a new Movie
 
@@ -63,10 +75,48 @@ The REST API to the Simple Movie Search Engine app is described below.
       },
       "year": 2020
     }
-    
+
+
+## Update an existing movie by ID
+
+### Request
+`POST /movies/{id}`
+
+    curl -X PUT "http://localhost:8080/movies/45" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"name\": \"Marley and Me - TEST\", \"genre\": \"Comedy\", \"leadStudio\": \"Fox\", \"audienceScore\": 77, \"profitability\": 3.746781818, \"rottenTomatoesScore\": 63, \"worldwideGross\": { \"currency\": \"USD\", \"amount\": 206.07 }, \"year\": 2008}"
+
+### Response
+    {
+      "id": 45,
+      "name": "Marley and Me - TEST",
+      "genre": "Comedy",
+      "leadStudio": "Fox",
+      "audienceScore": 77,
+      "profitability": 3.746781818,
+      "rottenTomatoesScore": 63,
+      "worldwideGross": {
+        "currency": "USD",
+        "amount": 206.07
+      },
+      "year": 2008
+    }
+
+## Delete Movie by ID
+
+### Request
+`DELETE /movies/{id}`
+
+    curl -X DELETE "http://localhost:8080/movies/14" -H "accept: */*"
+
+### Response
+    {
+      "deleted": true
+    }
+
 ## Retrieve Movie fields by given ID and list of fields
 
 ### Request
+`GET /movies/{id}/{fieldValues}`
+
     curl -X GET "http://localhost:8080/movies/12/worldwideGross%2C%20name%2C%20genre%2C%20id" -H "accept: */*"
 
 ### Response
@@ -79,6 +129,3 @@ The REST API to the Simple Movie Search Engine app is described below.
         "amount": 702.17
       }
     }
-    
-### Reference
-for more REST  examples please review the swagger UI - `http://localhost:8080/swagger-ui.html`.

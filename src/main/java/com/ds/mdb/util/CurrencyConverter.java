@@ -12,7 +12,7 @@ public class CurrencyConverter {
 
     public static WorldwideGross currencyToWorldwideGross(String amountString) throws ParseException {
         NumberFormat format = NumberFormat.getNumberInstance(Locale.US);
-        String[] countries = {"US", "GB", "EU"};
+        String[] countries = {"US", "GB", "DE"};
 
         for (String countryCode : countries) {
             Currency c = Currency.getInstance(new Locale("", countryCode));
