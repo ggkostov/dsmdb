@@ -31,7 +31,7 @@ public class MovieController {
     @ApiOperation(value = "Add a movie", response = Movie.class)
     @ApiResponses({
             @ApiResponse(code = 201, message = "Successfully added movie"),
-            @ApiResponse(code = 417, message = "Movie Update failed")
+            @ApiResponse(code = 500, message = "Movie Update failed")
     })
     @PostMapping("/")
     public ResponseEntity<Movie> putNewMovie(
@@ -41,7 +41,7 @@ public class MovieController {
             return ResponseEntity.status(HttpStatus.CREATED).body(movieService.putNewMovie(movie));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, "Movie creation failed", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Movie creation failed", e);
         }
     }
 
@@ -49,7 +49,7 @@ public class MovieController {
     @ApiResponses({
             @ApiResponse(code = 201, message = "Successfully updated movie"),
             @ApiResponse(code = 404, message = "Source Movie by given ID not found"),
-            @ApiResponse(code = 417, message = "Movie Update failed")
+            @ApiResponse(code = 500, message = "Movie Update failed")
     })
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovieByID(
@@ -64,7 +64,7 @@ public class MovieController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Source Movie by given ID not found", nse);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, "Movie Update failed", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Movie Update failed", e);
         }
     }
 
@@ -89,7 +89,7 @@ public class MovieController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successfully deleted movie"),
             @ApiResponse(code = 404, message = "Movie not found"),
-            @ApiResponse(code = 417, message = "Movie Deletion failed")
+            @ApiResponse(code = 500, message = "Movie Deletion failed")
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteMovieByID(
@@ -102,7 +102,7 @@ public class MovieController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found.", nse);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, "Movie Deletion failed", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Movie Deletion failed", e);
         }
     }
 
